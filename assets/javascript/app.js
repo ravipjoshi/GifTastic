@@ -15,7 +15,7 @@ function displaygif(){
         method : "GET"
   }).then(function(response) {
 
-    console.log(response);
+   // console.log(response);
     var requestData = response.data;
 
    // console.log("rating is :"+requestData[0].rating);
@@ -23,11 +23,11 @@ function displaygif(){
     
 
     requestData.forEach(element => {
-        debugger;
+       // debugger;
         var imageDiv = $("<div class='imgDiv  col-lg-4 col-sm-6 '>");
         var ratingPtag = $("<p>").text("Rating: " + element.rating);
         
-        console.log(element.rating);
+       // console.log(element.rating);
         var imgTag = $("<img class='imgTag'>");
         
         imgTag.attr("src",element.images.fixed_height_small_still.url);
@@ -39,8 +39,8 @@ function displaygif(){
         
         imageDiv.append(imgTag);
         
-        console.log(element.images.fixed_height_small_still.url);
-        console.log(element.images.fixed_height_small.url);
+        // console.log(element.images.fixed_height_small_still.url);
+        // console.log(element.images.fixed_height_small.url);
         $("#gifGrid").prepend(imageDiv);
       
     });
@@ -68,6 +68,27 @@ function renderButton()
     }
 }
 
+function changeAnimStat()
+{
+ // debugger;
+  var state = $(this).attr("data-state");
+
+  // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+  // Then, set the image's data-state to animate
+  // Else set src to the data-still value
+
+  if (state === "still") {
+   // console.log("still is state");
+    $(this).attr("src", $(this).attr("data-animate"));
+    $(this).attr("data-state", "animate");
+  } else {
+   // console.log("still is state");
+    $(this).attr("src", $(this).attr("data-still"));
+    $(this).attr("data-state", "still");
+  }
+}
+
+
 
 
 $("#addTopic").on("click", function(event) {
@@ -83,8 +104,12 @@ $("#addTopic").on("click", function(event) {
     // calling renderButtons which handles the processing of our movie array
     renderButton();
   });
-
   $(document).on("click", ".topicButton", displaygif);
+  $(document).on("click",".imgTag",changeAnimStat);
+
+  
+
+  
   
  renderButton();
 
