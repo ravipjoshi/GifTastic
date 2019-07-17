@@ -1,9 +1,60 @@
+
+
 var topic = ["Stranger Things","Animals","Meme","Movies","Music","Science","Sports","Disney","Baby","Iphone","Winter","Cloud","Northern Light","Sunrise","80s","90s","vintage","Mario"];
+
+
+function displaygif(){
+ //debugger; 
+  
+  var topic = $(this).attr("topic-tag");
+  //  var queryURL = "https://www.omdbapi.com/?t=" + topic + "&apikey=trilogy";
+  var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=lhfFNJDuKIEtHFgjQxSLoA5ZZQl1dihl&q="+topic+"&limit=10&lang=en";
+
+  $.ajax({
+        url: queryURL,
+        method : "GET"
+  }).then(function(response) {
+
+    console.log(response);
+    var requestData = response.data;
+
+   // console.log("rating is :"+requestData[0].rating);
+   // console.log("Url is : "+requestData[0].images.fixed_height_small_still.url); 
+    
+
+    requestData.forEach(element => {
+        debugger;
+        var imageDiv = $("<div class='imgDiv  col-lg-4 col-sm-6 '>");
+        var ratingPtag = $("<p>").text("Rating: " + element.rating);
+        
+        console.log(element.rating);
+        var imgTag = $("<img class='imgTag'>");
+        
+        imgTag.attr("src",element.images.fixed_height_small_still.url);
+        imgTag.attr("data-still",element.images.fixed_height_small_still.url);
+        imgTag.attr("data-animate",element.images.fixed_height_small.url);
+        imgTag.attr("data-state","still");
+        // Displaying the  Image     
+        imageDiv.append(ratingPtag);
+        
+        imageDiv.append(imgTag);
+        
+        console.log(element.images.fixed_height_small_still.url);
+        console.log(element.images.fixed_height_small.url);
+        $("#gifGrid").prepend(imageDiv);
+      
+    });
+
+  });
+
+  
+
+}
 
 function renderButton()
 {
-  // $("#buttonArea").empty();
-   debugger;
+  $("#buttonArea").empty();
+   //debugger;
    
    for(var i=0;i<topic.length;i++){
        var topicButton = $("<button>");
@@ -16,47 +67,8 @@ function renderButton()
         
     }
 }
-function displaygif()
-{  
-    var topic = $(this).attr("topic-tag");
-    //  var queryURL = "https://www.omdbapi.com/?t=" + topic + "&apikey=trilogy";
-    var queryURL1 = "https://api.giphy.com/v1/gifs/search?api_key=lhfFNJDuKIEtHFgjQxSLoA5ZZQl1dihl&q="+topic+"&limit=10&lang=en"
-    // Creating an AJAX call for the specific movie button being clicked
-    $.ajax({
-      url: queryURL1,
-      method: "GET"
-    }).then(function(response) {
-
-      // Creating a div to hold the movie
-      var imgDiv = $("<div class='imgDiv'>");
-      
-      // Storing the rating data
-      var rating ;
-      var requestData = response.data;
 
 
-      requestData.forEach(element => {
-         // Creating an element to have the rating displayed
-             var ratingPtag = $("<p>").text("Rating: " + requestData.rating);
-        // Displaying the rating
-              imgDiv.append(ratingPtag);
-         //Creating ImageTag to display gif and Setting  its Attributes     
-              var imgTag = $("<img class='imgTag'>");
-              imgTag.attr("src",requestData.images.fixed_height_small_still);
-              imgTag.attr("data-still",requestData.fixed_height_small_still);
-              imgTag.attr("data-animate",requestData.fixed_height_small);
-              imgTag.attr("data-state","still");
-         // Displaying the  Image     
-              imgDiv.prepend(imgTag);
-
-   
-
-        
-      });    
-
-     
-   
-},
 
 $("#addTopic").on("click", function(event) {
     // event.preventDefault() prevents the form from trying to submit itself.
@@ -70,10 +82,9 @@ $("#addTopic").on("click", function(event) {
 
     // calling renderButtons which handles the processing of our movie array
     renderButton();
-  }));
+  });
 
- // $(document).on("click", ".movie-btn", displaygif);
+  $(document).on("click", ".topicButton", displaygif);
   
- // renderButton();
-
+ renderButton();
 

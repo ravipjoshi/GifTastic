@@ -8,27 +8,31 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
    <link rel="stylesheet" href="assets/css/style.css">
  <!--    <link rel="stylesheet" href="assets/css/reset.css">-->
+ 
+ 
 </head>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
-
 <body>
 
     <div class="container">
+        
         <div class="row" >
-            <div class="col-md-12" id="buttonArea">Buttons Here</div>
+            <div class="col-md-12" id="buttonArea"></div>
         </div>
-        <div class="row">
-            <div class="col-md-8" id="gifGrid">
+        <div class="row d-flex">
+            <div class="col-md-9" id="">
                        <!-- create grid dynamically -->
+                       <div class="row" id="gifGrid">
+
+                       </div>
             </div>
-            <div class="col-md-4" id="TopicAdd">
+            <div class="col-md-3" id="TopicAdd">
                         <!-- area to add new element or tag -->
                         <div><label  id="topicLbl" class="topicLbl"> Add New Topic </label></div>
                         <div><input type="text" id="topicTxt" class="topic" placeholder="Enter Any Topic"> </div>
                         <div><button id="addTopic" class="addTopic" type="submit" value="Add Topic Here!">Add Topic Here</button> </div>
                          
            
-                
+                       
              </div>
 
         </div>
@@ -37,5 +41,8 @@
 
     
 </body>
-<script src="assets/javascript/app.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>  
+ <script src="assets/javascript/app.js" ></script>
+
+
 </html>
